@@ -1,0 +1,41 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+#define TIME_STEP 0.1
+#define FRICTION 0.9
+#define FRICTION_FACTOR pow(FRICTION, TIME_STEP)
+
+const int WIDTH;
+const int HEIGHT;
+
+RWStructuredBuffer<float> inPos;
+RWStructuredBuffer<float> inVel;
+RWStructuredBuffer<float> outPos;
+RWStructuredBuffer<float> outVel;
+
+StructuredBuffer<int> walls;
+
+[numthreads(8,8,1)]
+void CSMain (int3 id : SV_DispatchThreadID)
+{
+    int pos = id.x*HEIGHT + id.y;
+    if(walls[pos] == 0){
+        float accel = 0;
+        if(id.x > 0 && walls[pos-HEIGHT] == 0){
+            accel += inPos[pos-HEIGHT] - inPos[pos];
+        }
+        if(id.x < WIDTH-1 && walls[pos+HEIGHT] == 0){
+            accel += inPos[pos+HEIGHT] - inPos[pos];
+        }
+        if(id.y > 0 && walls[pos-1] == 0){
+            accel += inPos[pos-1] - inPos[pos];
+        }
+        if(id.y < HEIGHT-1 && walls[pos+1] == 0){
+            accel += inPos[pos+1] - inPos[pos];
+        }
+        accel /= 4;
+        accel *= TIME_STEP;
+        outVel[pos] = (inVel[pos] + accel) * FRICTION_FACTOR;
+        outPos[pos] = inPos[pos] + outVel[pos];
+    }
+}

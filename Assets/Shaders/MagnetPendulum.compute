@@ -1,0 +1,48 @@
+﻿#pragma kernel CSMain
+
+struct pendulum {
+    float2 pos;
+    float2 vel;
+};
+
+RWTexture2D<float4> Result;
+RWStructuredBuffer<pendulum> Data;
+
+int stride;  //(height)
+
+//constants
+#define HEIGHT 1
+#define FRICTION 0.0003
+#define SIMULATIONSPEED 0.01
+
+[numthreads(8, 8, 1)]
+void CSMain(uint3 id : SV_DispatchThreadID)
+{
+    pendulum pend = Data[id.x * stride + id.y];
+
+    float2 magnet1 = float2(0.70710678, 0);
+    float2 magnet2 = float2(-0.35355339, 0.61237244);
+    float2 magnet3 = float2(-0.35355339, -0.61237244);
+
+    float2 pos = pend.pos;
+    float2 offset1 = magnet1 - pos;
+    float2 offset2 = magnet2 - pos;
+    float2 offset3 = magnet3 - pos;
+    float dist1 = sqrt(offset1.x * offset1.x + offset1.y * offset1.y);
+    float dist2 = sqrt(offset2.x * offset2.x + offset2.y * offset2.y);
+    float dist3 = sqrt(offset3.x * offset3.x + offset3.y * offset3.y);
+    float dist12 = dist1 + HEIGHT;
+    float dist22 = dist2 + HEIGHT;
+    float dist32 = dist3 + HEIGHT;
+
+    float2 accel = offset1 / dist1 / (dist12 * dist12 * dist12) + offset2 / dist2 / (dist22 * dist22 * dist22) + offset3 / dist3 / (dist32 * dist32 * dist32);
+    pend.vel += accel * SIMULATIONSPEED;
+    pend.vel *= (1 - FRICTION);  //pow(1 - FRICTION, SIMULATIONSPEED);
+    pend.pos += pend.vel * SIMULATIONSPEED;
+    Data[id.x * stride + id.y] = pend;
+
+    Result[id.xy] = ((dist1 < dist2) && (dist1 < dist3)) ? float4(1, 0, 0, 0) : (dist2 < dist3 ? float4(0, 1, 0, 0) : float4(0, 0, 1, 0));
+    //Result[id.xy] = float4(Data[id.x * stride + id.y].pos, 0, 0);
+    //Result[id.xy] = float4(-1 + id.x / 10.0 * (2), -1 + id.y / 10.0 * (2), 0, 0);
+    //Result[id.xy] = float4(1, 1, 0, 0);
+}
