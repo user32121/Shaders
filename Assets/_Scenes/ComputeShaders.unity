@@ -307,6 +307,118 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1173580010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1173580011}
+  - component: {fileID: 1173580014}
+  - component: {fileID: 1173580013}
+  - component: {fileID: 1173580012}
+  - component: {fileID: 1173580015}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1173580011
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173580010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1173580012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173580010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70df3ce55c91134994221a3969ca6b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderTargetPlane: {fileID: 252601202}
+  shader: {fileID: 7200000, guid: ddc1d1015cfd0db42aa4a62808eb5859, type: 3}
+  viewMin: {x: -1.5, y: -1.5}
+  viewMax: {x: 1.5, y: 1.5}
+--- !u!114 &1173580013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173580010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1337454f0b79a49a99426b862dd307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderTargetPlane: {fileID: 252601202}
+  shader: {fileID: 7200000, guid: 26696d3417282c247bc16a90bed5e446, type: 3}
+  shaderKernelName: CSMain
+  shaderTextureName: Result
+  shaderBufferName: Data
+  viewMin: {x: 0, y: 0}
+  viewMax: {x: 1, y: 1}
+--- !u!114 &1173580014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173580010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a3f3759b6be264f809bb5c30ed0dca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shader: {fileID: 0}
+  shaderKernelName: 
+  shaderTextureName: 
+  shaderBufferName: 
+--- !u!114 &1173580015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1173580010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eee2812c0ab9c340ab52495962b9ebe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderTargetPlane: {fileID: 252601202}
+  shader: {fileID: 7200000, guid: 71d41ef493c9f6b489f53818aab95bed, type: 3}
+  width: 512
+  height: 512
+  decay: 0.01
+  turning: 1
+  population: 102700001027000010270000
+  emitCol:
+  - {x: 1, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 0, z: 1}
+  detectCol:
+  - {x: 1, y: -1, z: -1}
+  - {x: -1, y: 1, z: -1}
+  - {x: -1, y: -1, z: 1}
 --- !u!1 &1787314885
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,9 +430,6 @@ GameObject:
   - component: {fileID: 1787314888}
   - component: {fileID: 1787314887}
   - component: {fileID: 1787314886}
-  - component: {fileID: 1787314890}
-  - component: {fileID: 1787314889}
-  - component: {fileID: 1787314891}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -393,54 +502,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1787314889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787314885}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1337454f0b79a49a99426b862dd307, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderTargetPlane: {fileID: 0}
-  shader: {fileID: 7200000, guid: 26696d3417282c247bc16a90bed5e446, type: 3}
-  shaderKernelName: CSMain
-  shaderTextureName: Result
-  shaderBufferName: Data
-  viewMin: {x: 0, y: 0}
-  viewMax: {x: 1, y: 1}
---- !u!114 &1787314890
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787314885}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a3f3759b6be264f809bb5c30ed0dca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shader: {fileID: 0}
-  shaderKernelName: 
-  shaderTextureName: 
-  shaderBufferName: 
---- !u!114 &1787314891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1787314885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70df3ce55c91134994221a3969ca6b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  renderTargetPlane: {fileID: 252601202}
-  shader: {fileID: 7200000, guid: ddc1d1015cfd0db42aa4a62808eb5859, type: 3}
-  viewMin: {x: -1.5, y: -1.5}
-  viewMax: {x: 1.5, y: 1.5}
